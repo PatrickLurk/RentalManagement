@@ -1,2 +1,2 @@
 # RentalManagement
-A demo on a rental management application
+A demo of a rental management application
