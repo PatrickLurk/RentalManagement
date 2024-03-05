@@ -97,12 +97,12 @@ export default function Checkout() {
         <h2>Checkout</h2>
         <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
 
-        <Input label="Full Name" type="text" id="name" />
-        <Input label="E-Mail Address" type="email" id="email" />
-        <Input label="Street" type="text" id="street" />
+        <Input label="Full Name" type="text" id="name" initialValue="Patrick Allen Lurk"/>
+        <Input label="E-Mail Address" type="email" id="email" initialValue="patricklurk@yahoo.com"/>
+        <Input label="Street" type="text" id="street" initialValue="123 Main Street"/>
         <div className="control-row">
-          <Input label="Postal Code" type="text" id="postal-code" />
-          <Input label="City" type="text" id="city" />
+          <Input label="Postal Code" type="text" id="postal-code" initialValue="12345"/>
+          <Input label="City" type="text" id="city"  initialValue="Any city"/>
         </div>
 
         {error && <Error title="Failed to submit order" message={error} />}
