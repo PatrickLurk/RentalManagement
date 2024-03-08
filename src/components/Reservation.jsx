@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 
 import Modal from './UI/Modal.jsx';
 import CartContext from '../store/CartContext.jsx';
@@ -9,6 +9,9 @@ import Button from './UI/Button.jsx';
 import useHttp from '../hooks/useHttp.js';
 import Error from './Error.jsx';
 
+import Calendar from 'react-calendar';
+import './../../src/calendar.css';
+
 const requestConfig = {
   method: 'POST',
   headers: {
@@ -16,9 +19,15 @@ const requestConfig = {
   },
 };
 
+// type ValuePiece = Date | null;
+// type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 export default function Checkout() {
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
+
+
+  const [calendarDate, setCalendarDate] = useState(new Date());
 
   const {
     data,
@@ -35,6 +44,12 @@ export default function Checkout() {
 
   function handleClose() {
     userProgressCtx.hideCheckout();
+  }
+
+  function handleCalendarChange(calendarDate) {
+    setCalendarDate(calendarDate);
+    console.log("handleCalendarChange");
+    console.log(calendarDate);
   }
 
   function handleFinish() {
@@ -92,9 +107,9 @@ export default function Checkout() {
   }
 
   return (
-    <Modal open={userProgressCtx.progress === 'checkout'} onClose={handleClose}>
+    <Modal open={userProgressCtx.progress === 'reservation'} onClose={handleClose}>
       <form onSubmit={handleSubmit}>
-        <h2>Checkout</h2>
+        <h2>Reservation</h2>
         <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
 
         <Input label="Full Name" type="text" id="name" initialValue="Patrick Allen Lurk"/>
@@ -104,9 +119,13 @@ export default function Checkout() {
           <Input label="Postal Code" type="text" id="postal-code" initialValue="12345"/>
           <Input label="City" type="text" id="city"  initialValue="Any city"/>
         </div>
+        <div className="control-row">
+            <Calendar className="react-calendar" onChange={handleCalendarChange} value={calendarDate}/>
+            <Calendar className="react-calendar1" onChange={handleCalendarChange} value={calendarDate}/>
+        </div>
 
         {error && <Error title="Failed to submit order" message={error} />}
-
+        
         <p className="modal-actions">{actions}</p>
       </form>
     </Modal>

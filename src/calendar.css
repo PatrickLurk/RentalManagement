@@ -1,0 +1,22 @@
+.react-calendar {
+    background: red;
+    border: 10px solid #000000;
+    width: 15rem;
+    height: 10rem;
+}
+
+.react-calendar1 {
+    background: blue;
+    border: 10px solid #6fffff;
+    width: 15rem;
+    height: 10rem;
+}
+
+.react-calendar__month-view__weekdays {
+    color: gray;
+    height: 0.5rem;
+}
+
+.react-calendar__navigation button {
+    font-size: .5em;
+}
