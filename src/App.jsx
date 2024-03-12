@@ -51,8 +51,10 @@ function App() {
   if (projectsState.selectedProjectId === 1) {
     content = (<UserProgressContextProvider>
       <CartContextProvider>
-        <Header />
-        <Meals />
+        <div>
+          <Header />
+          <Meals />
+        </div>
         <Cart />
         <Checkout />
         <Reservation />
