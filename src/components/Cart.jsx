@@ -7,6 +7,11 @@ import { currencyFormatter } from '../util/formatting.js';
 import UserProgressContext from '../store/UserProgressContext.jsx';
 import CartItem from './CartItem.jsx';
 
+/* *******************************************************/
+/* display logging
+/* *******************************************************/
+const showLogging = false;
+
 export default function Cart() {
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);

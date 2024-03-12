@@ -1,5 +1,10 @@
 import { currencyFormatter } from '../util/formatting.js';
 
+/* *******************************************************/
+/* display logging
+/* *******************************************************/
+const showLogging = false;
+
 export default function CartItem({
   name,
   quantity,

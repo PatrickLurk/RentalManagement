@@ -4,6 +4,11 @@ import Button from './UI/Button.jsx';
 import CartContext from '../store/CartContext.jsx';
 import UserProgressContext from '../store/UserProgressContext.jsx';
 
+/* *******************************************************/
+/* display logging
+/* *******************************************************/
+const showLogging = false;
+
 export default function RentalManagementSidebar({
         projects, 
         selectedProjectId,

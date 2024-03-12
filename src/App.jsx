@@ -11,10 +11,15 @@ import { UserProgressContextProvider } from './store/UserProgressContext.jsx';
 
 import { useState, useEffect } from 'react';
 
-console.log("in App.jsx::before the App component");
+/* *******************************************************/
+/* display logging
+/* *******************************************************/
+const showLogging = false;
+
+showLogging && console.log("in App.jsx::before the App component");
 
 function App() {
-  console.log("in App.jsx::App()::beginning");
+  showLogging && console.log("in App.jsx::App()::beginning");
 
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: 1,
@@ -35,39 +40,47 @@ function App() {
   });
 
   function handleClick(id) {
-    console.log("in App.jsx::App()::handleClick:beginning::id = " + id);
+    showLogging && console.log("in App.jsx::App()::handleClick:beginning::id = " + id);
     setProjectsState((previousState) => {
-      console.log("in App.jsx::App()::setProjectState::beginning");
+      showLogging && console.log("in App.jsx::App()::setProjectState::beginning");
       return {
         ...previousState,
         selectedProjectId: id,
       }
     })
-    console.log("in App.jsx::App()::handleClick:end::id = " + id);
+    showLogging && console.log("in App.jsx::App()::handleClick:end::id = " + id);
   }
 
-  console.log("in App.jsx::App()::before setting the content = " + projectsState.selectedProjectId);
+  showLogging && console.log("in App.jsx::App()::before setting the content = " + projectsState.selectedProjectId);
   let content = null;
   if (projectsState.selectedProjectId === 1) {
-    content = (<UserProgressContextProvider>
-      <CartContextProvider>
-        <div>
-          <Header />
-          <Meals />
-        </div>
-        <Cart />
-        <Checkout />
-        <Reservation />
-      </CartContextProvider>
-    </UserProgressContextProvider>);
+    content = (
+      <UserProgressContextProvider>
+        <CartContextProvider>
+          <div>
+            <Header />
+            <Meals />
+          </div>
+          <Cart />
+          <Checkout />
+          <Reservation />
+        </CartContextProvider>
+      </UserProgressContextProvider>
+    );
   } else if (projectsState.selectedProjectId === 2) {
-    content = (<WorkOrders/>);
+    content = (
+      <UserProgressContextProvider>
+        <WorkOrders/>
+      </UserProgressContextProvider>
+    );
   } else if (projectsState.selectedProjectId === 3) {
-    content = (<Payouts/>);
+    content = (
+      <Payouts/>
+    );
   }
-  console.log("in App.jsx::App()::after setting the content = " + projectsState.selectedProjectId);
+  showLogging && console.log("in App.jsx::App()::after setting the content = " + projectsState.selectedProjectId);
 
-  console.log("in App.jsx::App()::before the return = " + projectsState.selectedProjectId);
+  showLogging && console.log("in App.jsx::App()::before the return = " + projectsState.selectedProjectId);
   return (
     <div className="control-row">
       <RentalManagementSidebar 

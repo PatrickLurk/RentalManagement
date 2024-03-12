@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
+/* *******************************************************/
+/* display logging
+/* *******************************************************/
+const showLogging = false;
+
 async function sendHttpRequest(url, config) {
   const response = await fetch(url, config);
 

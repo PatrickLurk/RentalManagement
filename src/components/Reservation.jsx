@@ -12,6 +12,11 @@ import Error from './Error.jsx';
 import Calendar from 'react-calendar';
 import './../../src/calendar.css';
 
+/* *******************************************************/
+/* display logging
+/* *******************************************************/
+const showLogging = false;
+
 const requestConfig = {
   method: 'POST',
   headers: {

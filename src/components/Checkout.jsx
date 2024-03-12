@@ -9,6 +9,11 @@ import Button from './UI/Button.jsx';
 import useHttp from '../hooks/useHttp.js';
 import Error from './Error.jsx';
 
+/* *******************************************************/
+/* display logging
+/* *******************************************************/
+const showLogging = false;
+
 const requestConfig = {
   method: 'POST',
   headers: {

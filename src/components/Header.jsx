@@ -5,6 +5,11 @@ import logoImg from '../assets/logo.jpg';
 import CartContext from '../store/CartContext.jsx';
 import UserProgressContext from '../store/UserProgressContext.jsx';
 
+/* *******************************************************/
+/* display logging
+/* *******************************************************/
+const showLogging = false;
+
 export default function Header() {
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);

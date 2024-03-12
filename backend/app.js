@@ -58,7 +58,41 @@ app.post('/orders', async (req, res) => {
   res.status(201).json({ message: 'Order created!' });
 });
 
+app.post('/work-orders', async (req, res) => {
+  const orderData = req.body.order;
+
+  if (orderData === null || orderData.items === null || orderData.items === []) {
+    return res
+      .status(400)
+      .json({ message: 'Missing data.' });
+  }
+
+  if (
+    orderData.workOrder.name === null ||
+    orderData.workOrder.name.trim() === ''
+  ) {
+    return res.status(400).json({
+      message:
+        'Missing data: Email, name, street, postal code or city is missing.',
+    });
+  }
+
+  const newOrder = {
+    ...orderData,
+    id: (Math.random() * 1000).toString(),
+  };
+  const orders = await fs.readFile('./data/work-orders.json', 'utf8');
+  const allOrders = JSON.parse(orders);
+  allOrders.push(newOrder);
+  await fs.writeFile('./data/work-orders.json', JSON.stringify(allOrders));
+  res.status(201).json({ message: 'Order created!' });
+});
+
+/* **************************************************/
+/* must be last method in the file
+/* **************************************************/
 app.use((req, res) => {
+  console.log("in app.js::app.use::must be last method in file");
   if (req.method === 'OPTIONS') {
     return res.sendStatus(200);
   }

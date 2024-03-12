@@ -5,6 +5,11 @@ import Button from './UI/Button.jsx';
 import CartContext from '../store/CartContext.jsx';
 import UserProgressContext from '../store/UserProgressContext.jsx';
 
+/* *******************************************************/
+/* display logging
+/* *******************************************************/
+const showLogging = false;
+
 export default function MealItem({ meal }) {
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
@@ -18,7 +23,6 @@ export default function MealItem({ meal }) {
     cartCtx.addItem(meal);
     userProgressCtx.showReservation();
   }
-
 
   return (
     <li className="meal-item">

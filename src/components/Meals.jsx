@@ -2,6 +2,11 @@ import MealItem from './MealItem.jsx';
 import useHttp from '../hooks/useHttp.js';
 import Error from './Error.jsx';
 
+/* *******************************************************/
+/* display logging
+/* *******************************************************/
+const showLogging = false;
+
 const requestConfig = {};
 
 export default function Meals() {
