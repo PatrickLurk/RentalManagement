@@ -25,6 +25,9 @@ const requestConfig = {
 /* WorkOrders
 /* *******************************************************/
 export default function WorkOrders() {
+  const [selectedCondo, setSelectedCondo] = useState('');
+  const [priority, setPriority] = useState('');
+  const [assignedTo, setAssignedTo] = useState('');
   const [incidentDate, setIncidentDate] = useState(moment().format('YYYY-MM-DD'));
   const [expectedCompletionDate, setExpectedCompletionDate] = useState(moment().format('YYYY-MM-DD'));
 
@@ -35,14 +38,6 @@ export default function WorkOrders() {
     sendRequest,
     clearData
   } = useHttp('http://localhost:3000/work-orders', requestConfig);
-
-  /* *******************************************************/
-  /* *******************************************************/
-  function handleFinish() {
-    console.log("handleFinish");
-    userProgressCtx.hideCheckout();
-    clearData();
-  }
 
   /* *******************************************************/
   /* *******************************************************/
@@ -60,6 +55,25 @@ export default function WorkOrders() {
     const newDate = moment(target.value).format('YYYY-MM-DD');
     setExpectedCompletionDate(newDate);
     showLogging && console.log("newDate = **" + newDate + "**");
+  };
+
+    /* *******************************************************/
+  /* *******************************************************/
+  const onChangeAssignedTo = ({ target }) => {
+    showLogging && console.log("onAssignedTo()::target.value = **" + target.value + "**");
+    setAssignedTo(target.value);
+  };
+
+  /* *******************************************************/
+  /* *******************************************************/
+  const handleSelectCondoChange = (event) => {
+    setSelectedCondo(event.target.value);
+  };
+  
+  /* *******************************************************/
+  /* *******************************************************/
+  const handleSelectPriorityChange = (event) => {
+    setPriority(event.target.value);
   };
 
   /* *******************************************************/
@@ -81,6 +95,14 @@ export default function WorkOrders() {
         },
       })
     );
+  }
+
+  /* *******************************************************/
+  /* *******************************************************/
+  function handleFinish() {
+    console.log("handleFinish");
+    userProgressCtx.hideCheckout();
+    clearData();
   }
 
   /* *******************************************************/
@@ -118,29 +140,27 @@ export default function WorkOrders() {
   /* *******************************************************/
   /* *******************************************************/
   return (
-      <div>
-        <h2>Work Orders</h2>
-        <form onSubmit={handleSubmit}>
-          <Input label="Full Name" type="text" id="name" initialValue="Patrick Allen Lurk"/>
-          <div className="control-row">
-            <Input label="Postal Code" type="text" id="postal-code" initialValue="12345"/>
-            <Input label="City" type="text" id="city"  initialValue="Any city"/>
-          </div>
+    <div>
+      <h2>Work Order Request Form</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="control">
+          <label htmlFor="location">Location:</label>
+          <select id="location" onChange={handleSelectCondoChange}>
+            <option value="sundestin">SunDestin</option>
+            <option value="breakers">Breakers</option>
+            <option value="surfside">Surfside</option>
+          </select>
+        </div>
+
+        <Input label="Requestor:" type="text" id="name" initialValue="Patrick Allen Lurk"/>
+        <div className="control-row">
           <p className="control">
-            <label htmlFor="incidentDate">Incident Date:</label>
+            <label htmlFor="incidentDate">Date of Request:</label>
             <input 
               id="incidentDate"
               type="date"
               value={incidentDate}
               onChange={(e)=>onChangeIncidentDate(e)}/>              
-          </p>
-          <p className="control">
-            <label htmlFor="description">Enter description of problem</label>
-            <textarea 
-              id="description"
-              name="postContent" 
-              rows={10} 
-              cols={80} />
           </p>
           <p className="control">
             <label htmlFor="expectedCompletionDate">Expected Completion Date:</label>
@@ -150,10 +170,38 @@ export default function WorkOrders() {
               value={expectedCompletionDate}
               onChange={(e)=>onChangeExpectedCompletionDate(e)}/>              
           </p>
-          {error && <Error title="Failed to submit order" message={error} />}
-          
-          <p className="modal-actions">{actions}</p>
-        </form>
-      </div>
+        </div>
+        <div className="control-row">
+          <p className="control">
+              <label htmlFor="assignedTo">Assigned To:</label>
+              <input 
+                id="assignedTo"
+                type="text"
+                value={assignedTo}
+                onChange={(e)=>onChangeAssignedTo(e)}/>              
+          </p>
+          <p className="control">
+            <label htmlFor="priority">Priority:</label>
+            <select id="priority" onChange={handleSelectPriorityChange}>
+              <option value="high">High</option>
+              <option value="normal">Normal</option>
+              <option value="low">Low</option>
+            </select>
+          </p>
+        </div>
+        <p className="control">
+          <label htmlFor="description">Enter description of request:</label>
+          <textarea 
+            id="description"
+            name="postContent" 
+            rows={10} 
+            cols={80} />
+        </p>
+
+        {error && <Error title="Failed to submit order" message={error} />}
+        
+        <p className="modal-actions">{actions}</p>
+      </form>
+    </div>
   );
 }
