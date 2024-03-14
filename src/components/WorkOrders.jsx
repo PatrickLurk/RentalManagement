@@ -1,20 +1,19 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import useHttp from '../hooks/useHttp.js';
 
 import Modal from './UI/Modal.jsx';
-import WorkOrderContext from '../store/WorkOrderContext.jsx';
-import UserProgressContext from '../store/UserProgressContext.jsx';
-
 import Input from './UI/Input.jsx';
 import Button from './UI/Button.jsx';
 import Error from './Error.jsx';
-import Calendar from 'react-calendar';
+import moment from "moment";
 
 /* *******************************************************/
 /* display logging
 /* *******************************************************/
 const showLogging = true;
 
+/* *******************************************************/
+/* *******************************************************/
 const requestConfig = {
   method: 'POST',
   headers: {
@@ -22,8 +21,12 @@ const requestConfig = {
   },
 };
 
+/* *******************************************************/
+/* WorkOrders
+/* *******************************************************/
 export default function WorkOrders() {
-  const userProgressCtx = useContext(UserProgressContext);
+  const [incidentDate, setIncidentDate] = useState(moment().format('YYYY-MM-DD'));
+  const [expectedCompletionDate, setExpectedCompletionDate] = useState(moment().format('YYYY-MM-DD'));
 
   const {
     data,
@@ -33,21 +36,34 @@ export default function WorkOrders() {
     clearData
   } = useHttp('http://localhost:3000/work-orders', requestConfig);
 
-  function handleClose() {
-    userProgressCtx.hideCheckout();
-  }
-
-  function handleCalendarChange(calendarDate) {
-    // setCalendarDate(calendarDate);
-    console.log("handleCalendarChange");
-    console.log(calendarDate);
-  }
-
+  /* *******************************************************/
+  /* *******************************************************/
   function handleFinish() {
+    console.log("handleFinish");
     userProgressCtx.hideCheckout();
     clearData();
   }
 
+  /* *******************************************************/
+  /* *******************************************************/
+  const onChangeIncidentDate = ({ target }) => {
+    showLogging && console.log("onChangeIncidentDate()::target.value = **" + target.value + "**");
+    const newDate = moment(target.value).format('YYYY-MM-DD');
+    setIncidentDate(newDate);
+    showLogging && console.log("newDate = **" + newDate + "**");
+  };
+
+  /* *******************************************************/
+  /* *******************************************************/
+  const onChangeExpectedCompletionDate = ({ target }) => {
+    showLogging && console.log("onChangeExpectedCompletionDate()::target.value = **" + target.value + "**");
+    const newDate = moment(target.value).format('YYYY-MM-DD');
+    setExpectedCompletionDate(newDate);
+    showLogging && console.log("newDate = **" + newDate + "**");
+  };
+
+  /* *******************************************************/
+  /* *******************************************************/
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -67,21 +83,19 @@ export default function WorkOrders() {
     );
   }
 
+  /* *******************************************************/
+  /* *******************************************************/
   let actions = (
     <>
-      <Button type="button" textOnly onClick={handleClose}>
-        Close
-      </Button>
       <Button>Submit Order</Button>
     </>
   );
-
   if (isSending) {
     actions = <span>Sending order data...</span>;
   }
 
-  /* open={true}  */
-
+  /* *******************************************************/
+  /* *******************************************************/
   if (data && !error) {
     return (
       <Modal
@@ -101,6 +115,8 @@ export default function WorkOrders() {
     );  
   }
 
+  /* *******************************************************/
+  /* *******************************************************/
   return (
       <div>
         <h2>Work Orders</h2>
@@ -110,7 +126,30 @@ export default function WorkOrders() {
             <Input label="Postal Code" type="text" id="postal-code" initialValue="12345"/>
             <Input label="City" type="text" id="city"  initialValue="Any city"/>
           </div>
-
+          <p className="control">
+            <label htmlFor="incidentDate">Incident Date:</label>
+            <input 
+              id="incidentDate"
+              type="date"
+              value={incidentDate}
+              onChange={(e)=>onChangeIncidentDate(e)}/>              
+          </p>
+          <p className="control">
+            <label htmlFor="description">Enter description of problem</label>
+            <textarea 
+              id="description"
+              name="postContent" 
+              rows={10} 
+              cols={80} />
+          </p>
+          <p className="control">
+            <label htmlFor="expectedCompletionDate">Expected Completion Date:</label>
+            <input 
+              id="expectedCompletionDate"
+              type="date"
+              value={expectedCompletionDate}
+              onChange={(e)=>onChangeExpectedCompletionDate(e)}/>              
+          </p>
           {error && <Error title="Failed to submit order" message={error} />}
           
           <p className="modal-actions">{actions}</p>

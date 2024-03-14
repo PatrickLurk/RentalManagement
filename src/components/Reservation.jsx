@@ -15,7 +15,7 @@ import './../../src/calendar.css';
 /* *******************************************************/
 /* display logging
 /* *******************************************************/
-const showLogging = false;
+const showLogging = true;
 
 const requestConfig = {
   method: 'POST',
@@ -48,6 +48,7 @@ export default function Checkout() {
   );
 
   function handleClose() {
+    showLogging && console.log("in Reservation.jsx::handleClose()");
     userProgressCtx.hideCheckout();
   }
 
@@ -58,6 +59,7 @@ export default function Checkout() {
   }
 
   function handleFinish() {
+    showLogging && console.log("in Reservation.jsx::handleFinish()");
     userProgressCtx.hideCheckout();
     cartCtx.clearCart();
     clearData();
