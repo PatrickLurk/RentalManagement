@@ -67,9 +67,10 @@ app.post('/work-orders', async (req, res) => {
       .json({ message: 'Missing data.' });
   }
 
+  // make sure that fields match with 
   if (
-    orderData.workOrder.name === null ||
-    orderData.workOrder.name.trim() === ''
+    orderData.workOrder.reqestor === null ||
+    orderData.workOrder.requestor.trim() === ''
   ) {
     return res.status(400).json({
       message:

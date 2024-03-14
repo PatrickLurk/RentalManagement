@@ -45,7 +45,7 @@ export default function WorkOrders() {
     showLogging && console.log("onChangeIncidentDate()::target.value = **" + target.value + "**");
     const newDate = moment(target.value).format('YYYY-MM-DD');
     setIncidentDate(newDate);
-    showLogging && console.log("newDate = **" + newDate + "**");
+    showLogging && console.log("incidentDate = **" + incidentDate + "**");
   };
 
   /* *******************************************************/
@@ -54,7 +54,7 @@ export default function WorkOrders() {
     showLogging && console.log("onChangeExpectedCompletionDate()::target.value = **" + target.value + "**");
     const newDate = moment(target.value).format('YYYY-MM-DD');
     setExpectedCompletionDate(newDate);
-    showLogging && console.log("newDate = **" + newDate + "**");
+    showLogging && console.log("expectedCompletionDate = **" + expectedCompletionDate + "**");
   };
 
     /* *******************************************************/
@@ -84,9 +84,13 @@ export default function WorkOrders() {
     const fd = new FormData(event.target);
     const workOrderData = Object.fromEntries(fd.entries()); // { email: test@example.com }
 
-    showLogging && console.log("in WorkOrders.jdx::handleSubmit:: workOrderData[name] = **" + workOrderData['name'] + "**");
-    showLogging && console.log("in WorkOrders.jdx::handleSubmit:: workOrderData[postal-code] = **" + workOrderData['postal-code'] + "**");
-    showLogging && console.log("in WorkOrders.jdx::handleSubmit:: workOrderData[city] = **" + workOrderData['city'] + "**");
+    showLogging && console.log("in WorkOrders.jdx::handleSubmit:: workOrderData[location] = **" + workOrderData['location'] + "**");
+    showLogging && console.log("in WorkOrders.jdx::handleSubmit:: workOrderData[requestor] = **" + workOrderData['requestor'] + "**");
+    showLogging && console.log("in WorkOrders.jdx::handleSubmit:: workOrderData[incidentDate] = **" + workOrderData['incidentDate'] + "**");
+    showLogging && console.log("in WorkOrders.jdx::handleSubmit:: workOrderData[expectedCompletionDate] = **" + workOrderData['expectedCompletionDate'] + "**");   
+    showLogging && console.log("in WorkOrders.jdx::handleSubmit:: workOrderData[assignedTo] = **" + workOrderData['assignedTo'] + "**");
+    showLogging && console.log("in WorkOrders.jdx::handleSubmit:: workOrderData[priority] = **" + workOrderData['priority'] + "**");
+    showLogging && console.log("in WorkOrders.jdx::handleSubmit:: workOrderData[description] = **" + workOrderData['description'] + "**");
 
     sendRequest(
       JSON.stringify({
@@ -143,21 +147,32 @@ export default function WorkOrders() {
     <div>
       <h2>Work Order Request Form</h2>
       <form onSubmit={handleSubmit}>
-        <div className="control">
-          <label htmlFor="location">Location:</label>
-          <select id="location" onChange={handleSelectCondoChange}>
-            <option value="sundestin">SunDestin</option>
-            <option value="breakers">Breakers</option>
-            <option value="surfside">Surfside</option>
-          </select>
+        <div className="control-row">
+          <p className="control">
+            <label htmlFor="location" style={{color: "red"}}>Location:</label>
+            <select 
+              id="location"
+              name="location"
+              onChange={handleSelectCondoChange} 
+              style={{height: "2.0rem", width:"10rem"}}>
+              <option value="sundestin">SunDestin</option>
+              <option value="breakers">Breakers</option>
+              <option value="surfside">Surfside</option>
+            </select>
+          </p>
         </div>
-
-        <Input label="Requestor:" type="text" id="name" initialValue="Patrick Allen Lurk"/>
+        <Input 
+          label="Requestor:" 
+          type="text" 
+          id="requestor"
+          name="requestor"
+          initialValue="Patrick Allen Lurk"/>
         <div className="control-row">
           <p className="control">
             <label htmlFor="incidentDate">Date of Request:</label>
             <input 
               id="incidentDate"
+              name="incidentDate"
               type="date"
               value={incidentDate}
               onChange={(e)=>onChangeIncidentDate(e)}/>              
@@ -166,34 +181,40 @@ export default function WorkOrders() {
             <label htmlFor="expectedCompletionDate">Expected Completion Date:</label>
             <input 
               id="expectedCompletionDate"
+              name="expectedCompletionDate"
               type="date"
               value={expectedCompletionDate}
               onChange={(e)=>onChangeExpectedCompletionDate(e)}/>              
           </p>
         </div>
+
         <div className="control-row">
-          <p className="control">
-              <label htmlFor="assignedTo">Assigned To:</label>
-              <input 
-                id="assignedTo"
-                type="text"
-                value={assignedTo}
-                onChange={(e)=>onChangeAssignedTo(e)}/>              
-          </p>
+          <Input 
+            label="Assigned To:" 
+            type="text" 
+            id="assignedTo"
+            name="assignedTo"
+            initialValue="Patrick Allen Lurk"/>
           <p className="control">
             <label htmlFor="priority">Priority:</label>
-            <select id="priority" onChange={handleSelectPriorityChange}>
+            <select 
+              id="priority"
+              name="priority"
+              onChange={handleSelectPriorityChange} 
+              style={{height: "2.3rem", width:"10rem"}}>
               <option value="high">High</option>
               <option value="normal">Normal</option>
               <option value="low">Low</option>
             </select>
           </p>
         </div>
+        <div>
+        </div>
         <p className="control">
           <label htmlFor="description">Enter description of request:</label>
           <textarea 
             id="description"
-            name="postContent" 
+            name="description" 
             rows={10} 
             cols={80} />
         </p>

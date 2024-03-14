@@ -198,6 +198,15 @@ h1 {
   border: 1px solid #ccc;
 }
 
+.control select {
+  width: 100%;
+  max-width: 20rem;
+  font: inherit;
+  padding: 0.0rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
 .control-row {
   display: flex;
   justify-content: flex-start;
