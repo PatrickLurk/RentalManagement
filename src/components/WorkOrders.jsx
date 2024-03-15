@@ -3,6 +3,7 @@ import useHttp from '../hooks/useHttp.js';
 
 import Modal from './UI/Modal.jsx';
 import Input from './UI/Input.jsx';
+import Radio from './UI/Radio.jsx';
 import Button from './UI/Button.jsx';
 import Error from './Error.jsx';
 import moment from "moment";
@@ -196,7 +197,8 @@ export default function WorkOrders() {
             name="assignedTo"
             initialValue="Patrick Allen Lurk"/>
           <p className="control">
-            <label htmlFor="priority">Priority:</label>
+            <Radio/>
+            {/* <label htmlFor="priority">Priority:</label>
             <select 
               id="priority"
               name="priority"
@@ -205,7 +207,7 @@ export default function WorkOrders() {
               <option value="high">High</option>
               <option value="normal">Normal</option>
               <option value="low">Low</option>
-            </select>
+            </select> */}
           </p>
         </div>
         <div>
