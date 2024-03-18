@@ -1,11 +1,10 @@
-import Cart from './components/Cart.jsx';
-import Checkout from './components/Checkout.jsx';
-import Header from './components/Header.jsx';
-import Meals from './components/Meals.jsx';
-import WorkOrders from './components/WorkOrders.jsx';
-import Payouts from './components/Payouts.jsx';
+import Cart from './components/Meals/Cart.jsx';
+import Checkout from './components/Meals/Checkout.jsx';
+import Header from './components/Meals/Header.jsx';
+import Meals from './components/Meals/Meals.jsx';
+import WorkOrders from './components/WorkOrders/WorkOrders.jsx';
+import Payouts from './components/Payouts/Payouts.jsx';
 import RentalManagementSidebar from './components/RentalManagementSidebar.jsx';
-import Reservation from './components/Reservation.jsx';
 import { CartContextProvider } from './store/CartContext.jsx';
 import { UserProgressContextProvider } from './store/UserProgressContext.jsx';
 
@@ -63,7 +62,6 @@ function App() {
           </div>
           <Cart />
           <Checkout />
-          <Reservation />
         </CartContextProvider>
       </UserProgressContextProvider>
     );

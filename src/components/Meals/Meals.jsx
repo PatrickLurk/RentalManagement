@@ -1,6 +1,6 @@
 import MealItem from './MealItem.jsx';
-import useHttp from '../hooks/useHttp.js';
-import Error from './Error.jsx';
+import useHttp from '../../hooks/useHttp.js';
+import Error from '../UI/Error.jsx';
 
 /* *******************************************************/
 /* display logging

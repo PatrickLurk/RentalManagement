@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
-import useHttp from '../hooks/useHttp.js';
+import useHttp from '../../hooks/useHttp.js';
 
-import Modal from './UI/Modal.jsx';
-import Input from './UI/Input.jsx';
-import Radio from './UI/Radio.jsx';
-import Button from './UI/Button.jsx';
-import Error from './Error.jsx';
+import Modal from '../UI/Modal.jsx';
+import Input from '../UI/Input.jsx';
+import Radio from '../UI/Radio.jsx';
+import Button from '../UI/Button.jsx';
+import Error from '../UI/Error.jsx';
 import moment from "moment";
 
 /* *******************************************************/
