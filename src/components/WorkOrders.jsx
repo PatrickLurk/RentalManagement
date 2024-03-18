@@ -26,7 +26,8 @@ const requestConfig = {
 /* WorkOrders
 /* *******************************************************/
 export default function WorkOrders() {
-  const [selectedCondo, setSelectedCondo] = useState('');
+  const [selectedCondo, setCondo] = useState('');
+  const [unitNumber, setUnitNumber] = useState('');
   const [priority, setPriority] = useState('');
   const [assignedTo, setAssignedTo] = useState('');
   const [incidentDate, setIncidentDate] = useState(moment().format('YYYY-MM-DD'));
@@ -41,6 +42,15 @@ export default function WorkOrders() {
   } = useHttp('http://localhost:3000/work-orders', requestConfig);
 
   /* *******************************************************/
+  /* onChangeUnitNumber
+  /* *******************************************************/
+  const onChangeUnitNumber = ({ target }) => {
+    showLogging && console.log("onChangeUnitNumber()::target.value = **" + target.value + "**");
+    setUnitNumber(target.value);
+  };
+
+  /* *******************************************************/
+  /* onChangeIncidentDate
   /* *******************************************************/
   const onChangeIncidentDate = ({ target }) => {
     showLogging && console.log("onChangeIncidentDate()::target.value = **" + target.value + "**");
@@ -50,6 +60,7 @@ export default function WorkOrders() {
   };
 
   /* *******************************************************/
+  /* onChangeExpectedCompletionDate
   /* *******************************************************/
   const onChangeExpectedCompletionDate = ({ target }) => {
     showLogging && console.log("onChangeExpectedCompletionDate()::target.value = **" + target.value + "**");
@@ -58,7 +69,8 @@ export default function WorkOrders() {
     showLogging && console.log("expectedCompletionDate = **" + expectedCompletionDate + "**");
   };
 
-    /* *******************************************************/
+  /* *******************************************************/
+  /* onChangeAssignedTo
   /* *******************************************************/
   const onChangeAssignedTo = ({ target }) => {
     showLogging && console.log("onAssignedTo()::target.value = **" + target.value + "**");
@@ -66,18 +78,21 @@ export default function WorkOrders() {
   };
 
   /* *******************************************************/
+  /* handleCondoChange
   /* *******************************************************/
-  const handleSelectCondoChange = (event) => {
-    setSelectedCondo(event.target.value);
+  const handleCondoChange = (event) => {
+    setCondo(event.target.value);
   };
   
   /* *******************************************************/
+  /* handlePriorityChange
   /* *******************************************************/
-  const handleSelectPriorityChange = (event) => {
+  const handlePriorityChange = (event) => {
     setPriority(event.target.value);
   };
 
   /* *******************************************************/
+  /* handleSubmit
   /* *******************************************************/
   function handleSubmit(event) {
     event.preventDefault();
@@ -103,6 +118,7 @@ export default function WorkOrders() {
   }
 
   /* *******************************************************/
+  /* handleFinish
   /* *******************************************************/
   function handleFinish() {
     console.log("handleFinish");
@@ -111,6 +127,7 @@ export default function WorkOrders() {
   }
 
   /* *******************************************************/
+  /* actions
   /* *******************************************************/
   let actions = (
     <>
@@ -143,6 +160,7 @@ export default function WorkOrders() {
   }
 
   /* *******************************************************/
+  /* JSX code
   /* *******************************************************/
   return (
     <div>
@@ -150,16 +168,25 @@ export default function WorkOrders() {
       <form onSubmit={handleSubmit}>
         <div className="control-row">
           <p className="control">
-            <label htmlFor="location" style={{color: "red"}}>Location:</label>
-            <select 
-              id="location"
-              name="location"
-              onChange={handleSelectCondoChange} 
-              style={{height: "2.0rem", width:"10rem"}}>
-              <option value="sundestin">SunDestin</option>
-              <option value="breakers">Breakers</option>
-              <option value="surfside">Surfside</option>
-            </select>
+            <label htmlFor="location">Location:</label>
+              <select 
+                id="location"
+                name="location"
+                onChange={handleCondoChange} 
+                style={{height: "2.0rem", width:"10rem"}}>
+                <option value="sundestin">SunDestin</option>
+                <option value="breakers">Breakers</option>
+                <option value="surfside">Surfside</option>
+              </select>
+            </p>
+            <p className="control">
+              <label htmlFor="unitNumber">Unit Number:</label>
+                <input 
+                  id="unitNumber"
+                  name="unitNumber"
+                  type="text"
+                  value={unitNumber}
+                  onChange={(e)=>onChangeUnitNumber(e)}/>  
           </p>
         </div>
         <Input 
@@ -188,27 +215,25 @@ export default function WorkOrders() {
               onChange={(e)=>onChangeExpectedCompletionDate(e)}/>              
           </p>
         </div>
-
         <div className="control-row">
-          <Input 
-            label="Assigned To:" 
-            type="text" 
-            id="assignedTo"
-            name="assignedTo"
-            initialValue="Patrick Allen Lurk"/>
-          <p className="control">
-            <Radio/>
-            {/* <label htmlFor="priority">Priority:</label>
-            <select 
-              id="priority"
-              name="priority"
-              onChange={handleSelectPriorityChange} 
-              style={{height: "2.3rem", width:"10rem"}}>
-              <option value="high">High</option>
-              <option value="normal">Normal</option>
-              <option value="low">Low</option>
-            </select> */}
-          </p>
+          <div>
+            <Input 
+              label="Assigned To:" 
+              type="text" 
+              id="assignedTo"
+              name="assignedTo"
+              initialValue="Patrick Allen Lurk, Jr"/>
+            <Input 
+              label="Supervisor:" 
+              type="text" 
+              id="supervisor"
+              name="supervisor"
+              initialValue="Patrick Allen Lurk, Sr"/>
+            </div>
+            <div>
+            <Radio
+              label="Priority:"/>
+            </div>
         </div>
         <div>
         </div>
