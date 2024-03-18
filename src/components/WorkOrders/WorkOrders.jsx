@@ -42,38 +42,38 @@ export default function WorkOrders() {
   } = useHttp('http://localhost:3000/work-orders', requestConfig);
 
   /* *******************************************************/
-  /* onChangeUnitNumber
+  /* handleUnitNumberChange
   /* *******************************************************/
-  const onChangeUnitNumber = ({ target }) => {
-    showLogging && console.log("onChangeUnitNumber()::target.value = **" + target.value + "**");
+  const handleUnitNumberChange = ({ target }) => {
+    showLogging && console.log("handleUnitNumberChange()::target.value = **" + target.value + "**");
     setUnitNumber(target.value);
   };
 
   /* *******************************************************/
-  /* onChangeIncidentDate
+  /* handleIncidentDateChange
   /* *******************************************************/
-  const onChangeIncidentDate = ({ target }) => {
-    showLogging && console.log("onChangeIncidentDate()::target.value = **" + target.value + "**");
+  const handleIncidentDateChange = ({ target }) => {
+    showLogging && console.log("handleIncidentDateChange()::target.value = **" + target.value + "**");
     const newDate = moment(target.value).format('YYYY-MM-DD');
     setIncidentDate(newDate);
     showLogging && console.log("incidentDate = **" + incidentDate + "**");
   };
 
   /* *******************************************************/
-  /* onChangeExpectedCompletionDate
+  /* handleExpectedCompletionDateChange
   /* *******************************************************/
-  const onChangeExpectedCompletionDate = ({ target }) => {
-    showLogging && console.log("onChangeExpectedCompletionDate()::target.value = **" + target.value + "**");
+  const handleExpectedCompletionDateChange = ({ target }) => {
+    showLogging && console.log("handleExpectedCompletionDateChange()::target.value = **" + target.value + "**");
     const newDate = moment(target.value).format('YYYY-MM-DD');
     setExpectedCompletionDate(newDate);
     showLogging && console.log("expectedCompletionDate = **" + expectedCompletionDate + "**");
   };
 
   /* *******************************************************/
-  /* onChangeAssignedTo
+  /* handleAssignedToChange
   /* *******************************************************/
-  const onChangeAssignedTo = ({ target }) => {
-    showLogging && console.log("onAssignedTo()::target.value = **" + target.value + "**");
+  const handleAssignedToChange = ({ target }) => {
+    showLogging && console.log("handleAssignedToChange()::target.value = **" + target.value + "**");
     setAssignedTo(target.value);
   };
 
@@ -168,10 +168,10 @@ export default function WorkOrders() {
       <form onSubmit={handleSubmit}>
         <div className="control-row">
           <p className="control">
-            <label htmlFor="location">Location:</label>
+            <label htmlFor="condo">Location:</label>
             <select 
-              id="location"
-              name="location"
+              id="condo"
+              name="condo"
               onChange={handleCondoChange} 
               style={{height: "2.0rem", width:"10rem"}}>
               <option value="sundestin">SunDestin</option>
@@ -186,7 +186,7 @@ export default function WorkOrders() {
               name="unitNumber"
               type="text"
               value={unitNumber}
-              onChange={(e)=>onChangeUnitNumber(e)}/>  
+              onChange={(e)=>handleUnitNumberChange(e)}/>  
           </p>
         </div>
         <Input 
@@ -203,7 +203,7 @@ export default function WorkOrders() {
               name="incidentDate"
               type="date"
               value={incidentDate}
-              onChange={(e)=>onChangeIncidentDate(e)}/>              
+              onChange={(e)=>handleIncidentDateChange(e)}/>              
           </p>
           <p className="control">
             <label htmlFor="expectedCompletionDate">Expected Completion Date:</label>
@@ -212,7 +212,7 @@ export default function WorkOrders() {
               name="expectedCompletionDate"
               type="date"
               value={expectedCompletionDate}
-              onChange={(e)=>onChangeExpectedCompletionDate(e)}/>              
+              onChange={(e)=>handleExpectedCompletionDateChange(e)}/>              
           </p>
         </div>
         <div className="control-row">
