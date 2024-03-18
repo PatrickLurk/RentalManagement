@@ -39,7 +39,7 @@ export default function Radio({label}) {
 
 	return ( 
         <div className="control-row">
-            <p className="control">
+            <div className="control">
                 <label>{label}</label>
                 <div style={styles.container}> 
                     <div style={styles.radioGroup}> 
@@ -75,7 +75,7 @@ export default function Radio({label}) {
                         </div>
                     </div> 
                 </div> 
-		    </p> 
+		    </div> 
 		</div> 
 	); 
 }

@@ -169,24 +169,24 @@ export default function WorkOrders() {
         <div className="control-row">
           <p className="control">
             <label htmlFor="location">Location:</label>
-              <select 
-                id="location"
-                name="location"
-                onChange={handleCondoChange} 
-                style={{height: "2.0rem", width:"10rem"}}>
-                <option value="sundestin">SunDestin</option>
-                <option value="breakers">Breakers</option>
-                <option value="surfside">Surfside</option>
-              </select>
-            </p>
-            <p className="control">
-              <label htmlFor="unitNumber">Unit Number:</label>
-                <input 
-                  id="unitNumber"
-                  name="unitNumber"
-                  type="text"
-                  value={unitNumber}
-                  onChange={(e)=>onChangeUnitNumber(e)}/>  
+            <select 
+              id="location"
+              name="location"
+              onChange={handleCondoChange} 
+              style={{height: "2.0rem", width:"10rem"}}>
+              <option value="sundestin">SunDestin</option>
+              <option value="breakers">Breakers</option>
+              <option value="surfside">Surfside</option>
+            </select>
+          </p>
+          <p className="control">
+            <label htmlFor="unitNumber">Unit Number:</label>
+            <input 
+              id="unitNumber"
+              name="unitNumber"
+              type="text"
+              value={unitNumber}
+              onChange={(e)=>onChangeUnitNumber(e)}/>  
           </p>
         </div>
         <Input 
@@ -231,8 +231,7 @@ export default function WorkOrders() {
               initialValue="Patrick Allen Lurk, Sr"/>
             </div>
             <div>
-            <Radio
-              label="Priority:"/>
+              <Radio label="Priority:"/>
             </div>
         </div>
         <div>
