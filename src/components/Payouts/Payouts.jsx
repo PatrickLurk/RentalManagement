@@ -34,6 +34,7 @@ export default function Payouts() {
             <h2>Payouts</h2>
             <div style = {{border: '3px dashed blue'}}>
                 <p>Click the button to cause the useEffect() function to execute.</p>
+                <p>The useEffect() function will cause the color of the button to change.</p>
                 <Button style = {{color: buttonTextColor, backgroundColor: buttonBackgroundColor, fontWeight: 'bold'}} onClick={handleClick}>Click</Button>
             </div>
         </div>
