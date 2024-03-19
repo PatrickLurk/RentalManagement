@@ -3,15 +3,16 @@ import useHttp from '../../hooks/useHttp.js';
 
 import Modal from '../UI/Modal.jsx';
 import Input from '../UI/Input.jsx';
-import Radio from '../UI/Radio.jsx';
+import Radio from './Radio.jsx';
 import Button from '../UI/Button.jsx';
 import Error from '../UI/Error.jsx';
 import moment from "moment";
+import UserProgressContext from '../../store/UserProgressContext.jsx';
 
 /* *******************************************************/
 /* display logging
 /* *******************************************************/
-const showLogging = true;
+const showLogging = false;
 
 /* *******************************************************/
 /* *******************************************************/
@@ -32,6 +33,7 @@ export default function WorkOrders() {
   const [assignedTo, setAssignedTo] = useState('');
   const [incidentDate, setIncidentDate] = useState(moment().format('YYYY-MM-DD'));
   const [expectedCompletionDate, setExpectedCompletionDate] = useState(moment().format('YYYY-MM-DD'));
+  const [showMessage, setShowMessage] = useState(false);
 
   const {
     data,
@@ -40,6 +42,8 @@ export default function WorkOrders() {
     sendRequest,
     clearData
   } = useHttp('http://localhost:3000/work-orders', requestConfig);
+
+  const userProgressCtx = useContext(UserProgressContext);
 
   /* *******************************************************/
   /* handleUnitNumberChange
@@ -70,25 +74,10 @@ export default function WorkOrders() {
   };
 
   /* *******************************************************/
-  /* handleAssignedToChange
-  /* *******************************************************/
-  const handleAssignedToChange = ({ target }) => {
-    showLogging && console.log("handleAssignedToChange()::target.value = **" + target.value + "**");
-    setAssignedTo(target.value);
-  };
-
-  /* *******************************************************/
   /* handleCondoChange
   /* *******************************************************/
   const handleCondoChange = (event) => {
     setCondo(event.target.value);
-  };
-  
-  /* *******************************************************/
-  /* handlePriorityChange
-  /* *******************************************************/
-  const handlePriorityChange = (event) => {
-    setPriority(event.target.value);
   };
 
   /* *******************************************************/
@@ -147,23 +136,35 @@ export default function WorkOrders() {
         onClose={handleFinish}
       >
         <h2>Success!</h2>
-        <p>Your order was submitted successfully.</p>
-        <p>
-          We will get back to you with more details via email within the next
-          few minutes.
-        </p>
+        <p>Your work order was submitted successfully.</p>
+        <p>You will recieve a confirmation via email within the next few minutes.</p>
         <p className="modal-actions">
-          <Button onClick={handleFinish}>Okay</Button>
+          <Button onClick={handleFinish}>OK</Button>
         </p>
       </Modal>
     );  
   }
+
+  setTimeout(() => {
+    setShowMessage(true);
+  }, 50000);
 
   /* *******************************************************/
   /* JSX code
   /* *******************************************************/
   return (
     <div>
+      {showMessage ? 
+        <div>
+          <Modal open={true} onClose={handleFinish}>
+            <h2>Please contine entering data</h2>
+            <p className="modal-actions">
+              <Button onClick={handleFinish}>OK</Button>
+            </p>
+          </Modal>
+        </div> 
+        : null
+      }
       <h2>Work Order Request Form</h2>
       <form onSubmit={handleSubmit}>
         <div className="control-row">
@@ -241,7 +242,7 @@ export default function WorkOrders() {
           <textarea 
             id="description"
             name="description" 
-            rows={10} 
+            rows={6} 
             cols={80} />
         </p>
 
