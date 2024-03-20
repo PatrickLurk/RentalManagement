@@ -3,12 +3,12 @@ import Checkout from './components/Meals/Checkout.jsx';
 import Header from './components/Meals/Header.jsx';
 import Meals from './components/Meals/Meals.jsx';
 import WorkOrders from './components/WorkOrders/WorkOrders.jsx';
-import Payouts from './components/Payouts/Payouts.jsx';
 import RentalManagementSidebar from './components/RentalManagementSidebar.jsx';
 import { CartContextProvider } from './store/CartContext.jsx';
 import { UserProgressContextProvider } from './store/UserProgressContext.jsx';
 
 import { useState, useEffect } from 'react';
+import UseEffectExample from './components/Practice/UseEffectExample.jsx';
 
 /* *******************************************************/
 /* display logging
@@ -33,7 +33,7 @@ function App() {
       },
       {
         id: 3,
-        title: "Payouts",
+        title: "Examples",
       },      
     ],
   });
@@ -73,7 +73,7 @@ function App() {
     );
   } else if (projectsState.selectedProjectId === 3) {
     content = (
-      <Payouts/>
+      <UseEffectExample/>
     );
   }
   showLogging && console.log("in App.jsx::App()::after setting the content = " + projectsState.selectedProjectId);
