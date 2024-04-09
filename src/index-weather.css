@@ -42,9 +42,27 @@ h1 {
     z-index: -1;
 }
 
+.weather .search {
+    text-align: center;
+    padding: 1rem;
+}
+
+.weather input {
+    padding: .7rem 1.5rem;
+    font-size: 1.2 rem;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.1);
+    color: #f8f8f8;
+}
+
+::placeholder {
+    color: f8f8f8;
+}
+
 .weather .container {
     max-width: 700px;
-    height: 560px;
+    height: 490px;
     margin: auto;
     padding: 0 1rem;
     position: relative;
