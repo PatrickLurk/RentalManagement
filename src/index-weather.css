@@ -57,7 +57,8 @@ h1 {
 }
 
 ::placeholder {
-    color: f8f8f8;
+    color: white;
+    font-weight: 700;
 }
 
 .weather .container {

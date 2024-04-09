@@ -40,7 +40,7 @@ export default function Weather() {
     return (
         <div className="weather">
             <div className="search">
-                <input
+                <input className='bold'
                     value={location}
                     onChange={(e)=>handleLocationChange(e)}  
                     onKeyDown={searchLocation}
